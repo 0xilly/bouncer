@@ -1,0 +1,17 @@
+plugins {
+      id "org.echocat.golang" version "0.1.16"
+}
+
+group 'github.com/illyohs/bouncer'
+
+version "${progversion}"
+
+golang {
+    platforms=goos
+
+    build {
+        excludes = ['.git/**', '.svn/**', 'build.gradle', 'build/**', '.gradle/**', 'gradle/**']
+
+        outputFilenamePattern = "$buildDir/out/${progname}-${progversion}%{extension}"
+    }
+}
