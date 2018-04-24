@@ -1,72 +1,17 @@
-// plugins {
-    //   id "org.echocat.golang" version "0.1.16"
-// }
-// 
-// group 'github.com/illyohs/bouncer'
-// 
-// version "${progversion}"
-// 
-// golang {
-    // platforms=goos
-// 
-    // build {
-        // excludes = ['.git/**', '.svn/**', 'build.gradle', 'build/**', '.gradle/**', 'gradle/**']
-// 
-        // outputFilenamePattern = "$buildDir/out/${progname}-${progversion}%{extension}"
-    // }
-// 
-    // dependencies {
-        // tool 'github.com/josephspurrier/goversioninfo'
-    // }
-// }
-// 
-// import static org.echocat.gradle.plugins.golang.model.Platform.currentPlatform
-// import org.echocat.gradle.plugins.golang.tasks.GolangTask
-// import org.echocat.gradle.plugins.golang.utils.Executor
-// 
-// class GenInfo extends GolangTask {
-    // void run() {
-        // Executor.executor(toolchain.goBinary, logger)
-            // .env("GOROOT", toolchain.goroot)
-            // .env("GOPATH", build.gopath)
-            // .arguments("generate")
-            // .execute()
-    // }
-// }
-// 
-// task gInfo(type: GenInfo)
-// 
-// baseBuild.dependsOn gInfo
-
-
 plugins {
-  id "com.github.blindpirate.gogradle" version "0.9"
+      id "org.echocat.golang" version "0.1.16"
 }
+
+group 'github.com/illyohs/bouncer'
+
+version "${progversion}"
 
 golang {
-    packagePath = 'github.com/illyohs/bouncer' // go import path of project to be built, NOT local file system path!
-}
-	
-build.dependsOn check 
+    platforms=goos
 
-fmt {
-    gofmt '-e .'
-}
-	
-vet {
-    continueWhenFail = true
-    go 'tool vet .'
-}
+    build {
+        excludes = ['.git/**', '.svn/**', 'build.gradle', 'build/**', '.gradle/**', 'gradle/**']
 
-dependencies {
-    golang {
-        build 'github.com/josephspurrier/goversioninfo/cmd/goversioninfo'
+        outputFilenamePattern = "$buildDir/out/${progname}-${progversion}%{extension}"
     }
 }
-
-task gvinfo(type: com.github.blindpirate.gogradle.Go){
-	    continueWhenFail = true
-	    run('goversioninfo')
-}
-
-build.dependsOn gvinfo
