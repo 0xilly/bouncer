@@ -1,5 +1,5 @@
 plugins {
-      id "org.echocat.golang" version "0.1.16"
+    id "org.echocat.golang" version "0.1.16"
 }
 
 group 'github.com/illyohs/bouncer'
@@ -14,4 +14,28 @@ golang {
 
         outputFilenamePattern = "$buildDir/out/${progname}-${progversion}%{extension}"
     }
+
+    toolchain {
+        goversion='go1.10.1'
+    }
+
+    dependencies {
+        tool 'github.com/josephspurrier/goversioninfo'
+    }
 }
+
+import static org.echocat.gradle.plugins.golang.model.Platform.currentPlatform
+import org.echocat.gradle.plugins.golang.tasks.GolangTask
+import org.echocat.gradle.plugins.golang.utils.Executor
+
+class GenInfo extends GolangTask {
+    void run() {
+        Executor.executor("${project.buildDir}/tools/github.com/josephspurrier/goversioninfo",logger)
+            .env("GOROOT", toolchain.goroot)
+            .env("GOPATH", build.gopath)
+            .execute()
+    }
+}
+
+task gInfo(type: GenInfo)
+baseBuild.dependsOn gInfo
