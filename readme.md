@@ -1,5 +1,5 @@
 ## Compiling
-* Install [go](https://golang.org/dl/A)
+* Install [go](https://golang.org/dl/)
 * run the command `github.com/illyohs/bouncer`
 * cd into `$GOPATH/src/github.com/illyohs`
 * open the `bouncer.go` file with your favorite editor and change the URL in 	`browser.OpenURL()` to the site of your choosing

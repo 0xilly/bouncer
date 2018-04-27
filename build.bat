@@ -5,5 +5,5 @@ set name=Bouncer
 go get github.com/josephspurrier/goversioninfo/cmd/goversioninfo
 
 go generate
-go build -o %name%
+go build -o %name%.exe
 exit
